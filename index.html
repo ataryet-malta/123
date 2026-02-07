@@ -8,10 +8,11 @@
                 src: url('fonts/LiberationMono-Regular.ttf');
             }
 
-            /* الواجهة الجديدة */
+            /* نمط Glassmorphism الجديد */
             body {
-                background-color: #0a0a0a; /* لون خلفية داكن */
-                color: #00d4ff; /* لون نص سماوي فسفوري */
+                /* خلفية متدرجة عميقة لإبراز تأثير الزجاج */
+                background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+                color: #ffffff;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin: 0;
                 display: flex;
@@ -23,43 +24,54 @@
             }
 
             .main-card {
-                background: rgba(20, 20, 20, 0.9);
-                border: 1px solid #00d4ff;
-                border-radius: 15px;
+                /* تأثير الزجاج الشفاف */
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
                 padding: 30px;
-                box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
                 width: 80%;
                 max-width: 800px;
                 text-align: center;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 28px;
                 margin-bottom: 10px;
                 text-transform: uppercase;
-                letter-spacing: 2px;
+                letter-spacing: 3px;
+                color: #00d4ff;
+                text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
             }
 
-            /* الحفاظ على الكونسول كما هو مع تجميله */
+            #status {
+                font-weight: bold;
+                color: #00ff00;
+            }
+
+            /* الكونسول مدمج مع النمط الزجاجي */
             #console {
                 font-family: 'logging';
-                background: #000;
+                background: rgba(0, 0, 0, 0.4);
                 color: #00ff00; /* لون أخضر للمخرجات */
                 padding: 15px;
-                border-radius: 5px;
+                border-radius: 10px;
                 text-align: left;
                 height: 300px;
                 overflow-y: auto;
-                border: 1px solid #333;
+                border: 1px solid rgba(255, 255, 255, 0.05);
                 font-size: 14px;
                 white-space: pre-wrap;
                 word-wrap: break-word;
+                margin-top: 15px;
             }
 
             .footer {
                 margin-top: 20px;
                 font-size: 12px;
-                color: #555;
+                color: rgba(255, 255, 255, 0.3);
             }
 
             a { color: #00d4ff; text-decoration: none; }
