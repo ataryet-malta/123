@@ -8,12 +8,15 @@
                 src: url('fonts/LiberationMono-Regular.ttf');
             }
 
-            /* واجهة Glassmorphism العصرية */
+            /* واجهة Cyber-Industrial */
             body {
-                /* خلفية متدرجة عميقة ضرورية لإبراز تأثير الزجاج */
-                background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-                color: #ffffff;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #050505; /* أسود عميق */
+                background-image: 
+                    linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+                background-size: 30px 30px; /* خلفية شبكية تقنية */
+                color: #ff9d00; /* لون برتقالي صناعي تحذيري */
+                font-family: 'Segoe UI', 'Courier New', monospace;
                 margin: 0;
                 display: flex;
                 flex-direction: column;
@@ -24,62 +27,89 @@
             }
 
             .main-card {
-                /* تأثير الزجاج المتجمد الشفاف */
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 20px;
-                padding: 30px;
-                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+                background: rgba(10, 10, 10, 0.95);
+                border: 2px solid #ff9d00;
+                /* زوايا مشطوفة تقنية */
+                clip-path: polygon(0 5%, 5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%);
+                padding: 40px;
+                box-shadow: inset 0 0 15px rgba(255, 157, 0, 0.2), 0 0 30px rgba(0, 0, 0, 1);
                 width: 80%;
-                max-width: 800px;
+                max-width: 850px;
                 text-align: center;
+                position: relative;
+            }
+
+            /* إضافة لمسة صناعية في الزوايا */
+            .main-card::before {
+                content: "SYSTEM_ID: MALTA_PRO_v9.00";
+                position: absolute;
+                top: 10px;
+                right: 30px;
+                font-size: 10px;
+                letter-spacing: 1px;
+                opacity: 0.5;
             }
 
             h1 {
-                font-size: 28px;
-                margin-bottom: 10px;
+                font-size: 32px;
+                margin-bottom: 5px;
                 text-transform: uppercase;
-                letter-spacing: 3px;
-                color: #00d4ff; /* الحفاظ على لونك المفضل */
-                text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+                letter-spacing: 6px;
+                color: #ff9d00;
+                font-weight: 900;
+                text-shadow: 2px 2px 0px rgba(0, 0, 0, 1), 0 0 10px rgba(255, 157, 0, 0.3);
             }
 
             p {
-                margin-bottom: 15px;
-                font-size: 18px;
+                margin: 0 0 15px 0;
+                font-weight: bold;
+                letter-spacing: 1px;
             }
 
             #status {
-                font-weight: bold;
-                color: #00ff00;
+                color: #fff;
+                background: #ff9d00;
+                padding: 2px 8px;
+                color: #000;
+                text-transform: uppercase;
             }
 
-            /* الكونسول مدمج مع التصميم الزجاجي */
+            /* الكونسول الصناعي */
             #console {
                 font-family: 'logging';
-                background: rgba(0, 0, 0, 0.5);
-                color: #00ff00; /* الحفاظ على لون المخرجات الأخضر */
-                padding: 15px;
-                border-radius: 10px;
+                background: #000;
+                color: #00ff00; /* الحفاظ على اللون الأخضر للمخرجات البرمجية */
+                padding: 20px;
+                border: 1px solid #333;
                 text-align: left;
-                height: 300px;
+                height: 280px;
                 overflow-y: auto;
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                font-size: 14px;
+                font-size: 13px;
                 white-space: pre-wrap;
                 word-wrap: break-word;
+                /* تأثير خطوط المسح Scanlines */
+                background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+                background-size: 100% 2px, 3px 100%;
             }
 
             .footer {
-                margin-top: 20px;
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.4);
+                margin-top: 25px;
+                font-size: 11px;
+                color: #444;
+                text-transform: uppercase;
+                letter-spacing: 1px;
             }
 
-            a { color: #00d4ff; text-decoration: none; }
-            a:hover { text-decoration: underline; }
+            a { color: #ff9d00; text-decoration: none; border-bottom: 1px solid transparent; }
+            a:hover { border-bottom: 1px solid #ff9d00; }
+
+            /* تأثير النبض الصناعي */
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.7; }
+                100% { opacity: 1; }
+            }
+            #status { animation: pulse 1.5s infinite; }
 
         </style>
         <script>
@@ -98,7 +128,7 @@
             <pre id='console'></pre>
 
             <div class="footer">
-                See <a href='./about.html' data-jslicense='1'>JavaScript license information</a> for source code.
+                CORE_ENGINE: WEB_KIT // See <a href='./about.html' data-jslicense='1'>JS_LICENSE</a> for source code.
             </div>
         </div>
 
