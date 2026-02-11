@@ -1,134 +1,237 @@
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <title>Malta Pro</title>
-        <style>
-            @font-face {
-                font-family: 'logging';
-                src: url('fonts/LiberationMono-Regular.ttf');
-            }
-
-            /* واجهة Cyber-Industrial */
-            body {
-                background-color: #050505; /* أسود عميق */
-                background-image: 
-                    linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-                background-size: 30px 30px; /* خلفية شبكية تقنية */
-                color: #ff9d00; /* لون برتقالي صناعي تحذيري */
-                font-family: 'Segoe UI', 'Courier New', monospace;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                overflow: hidden;
-            }
-
-            .main-card {
-                background: rgba(10, 10, 10, 0.95);
-                border: 2px solid #ff9d00;
-                /* زوايا مشطوفة تقنية */
-                clip-path: polygon(0 5%, 5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%);
-                padding: 40px;
-                box-shadow: inset 0 0 15px rgba(255, 157, 0, 0.2), 0 0 30px rgba(0, 0, 0, 1);
-                width: 80%;
-                max-width: 850px;
-                text-align: center;
-                position: relative;
-            }
-
-            /* إضافة لمسة صناعية في الزوايا */
-            .main-card::before {
-                content: "SYSTEM_ID: MALTA_PRO_v9.00";
-                position: absolute;
-                top: 10px;
-                right: 30px;
-                font-size: 10px;
-                letter-spacing: 1px;
-                opacity: 0.5;
-            }
-
-            h1 {
-                font-size: 32px;
-                margin-bottom: 5px;
-                text-transform: uppercase;
-                letter-spacing: 6px;
-                color: #ff9d00;
-                font-weight: 900;
-                text-shadow: 2px 2px 0px rgba(0, 0, 0, 1), 0 0 10px rgba(255, 157, 0, 0.3);
-            }
-
-            p {
-                margin: 0 0 15px 0;
-                font-weight: bold;
-                letter-spacing: 1px;
-            }
-
-            #status {
-                color: #fff;
-                background: #ff9d00;
-                padding: 2px 8px;
-                color: #000;
-                text-transform: uppercase;
-            }
-
-            /* الكونسول الصناعي */
-            #console {
-                font-family: 'logging';
-                background: #000;
-                color: #00ff00; /* الحفاظ على اللون الأخضر للمخرجات البرمجية */
-                padding: 20px;
-                border: 1px solid #333;
-                text-align: left;
-                height: 280px;
-                overflow-y: auto;
-                font-size: 13px;
-                white-space: pre-wrap;
-                word-wrap: break-word;
-                /* تأثير خطوط المسح Scanlines */
-                background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-                background-size: 100% 2px, 3px 100%;
-            }
-
-            /* إخفاء قسم التذييل والروابط دون حذف الكود */
-            .footer {
-                display: none !important;
-            }
-
-            a { color: #ff9d00; text-decoration: none; border-bottom: 1px solid transparent; }
-            a:hover { border-bottom: 1px solid #ff9d00; }
-
-            /* تأثير النبض الصناعي */
-            @keyframes pulse {
-                0% { opacity: 1; }
-                50% { opacity: 0.7; }
-                100% { opacity: 1; }
-            }
-            #status { animation: pulse 1.5s infinite; }
-
-        </style>
-        <script>
-        if (window.applicationCache.status=='0')
-        {
-          window.location.replace("cache.html");
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>PS4 Malta Save Manager v2.0 - Fully Integrated</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #58a6ff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
-        </script>
-    </head>
-    <body>
 
-        <div class="main-card">
-            <h1>Malta Pro</h1>
-            <p>Status: <span id="status">Waiting for Exploit...</span></p>
+        #console-container {
+            width: 85%;
+            height: 65%;
+            background-color: #010409;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 25px rgba(88, 166, 255, 0.2);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #status-box {
+            flex-grow: 1;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .log-entry { margin-bottom: 5px; border-bottom: 1px dashed #21262d; padding-bottom: 2px; }
+        .log-success { color: #3fb950; font-weight: bold; }
+        .log-error { color: #f85149; background: rgba(248, 81, 73, 0.1); }
+        .log-info { color: #d2a8ff; }
+        .log-warn { color: #e3b341; }
+
+        .btn-container { display: flex; gap: 15px; margin-top: 20px; }
+
+        button {
+            background-color: #238636;
+            color: #ffffff;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover { background-color: #2ea043; transform: translateY(-2px); }
+        button:disabled { background-color: #1b4721; color: #8b949e; cursor: not-allowed; transform: none; }
+
+        .header { margin-bottom: 15px; text-align: center; }
+        .header h1 { color: #c9d1d9; font-size: 26px; margin: 0; letter-spacing: 1px; }
+        .header p { color: #8b949e; font-size: 13px; margin-top: 5px; }
+
+        /* Scrollbar Styling */
+        #console-container::-webkit-scrollbar { width: 8px; }
+        #console-container::-webkit-scrollbar-track { background: #010409; }
+        #console-container::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>نظام مزامنة تخزينات مالطا 🎮</h1>
+    <p>بروتوكول الاستنساخ الهيكلي - متوافق مع مستودع 123</p>
+</div>
+
+<div id="console-container">
+    <div id="status-box">
+        <div class="log-entry log-info">> انتظار تحميل مكتبات النظام (int64, rop, malloc)...</div>
+        <div class="log-entry log-warn">> تأكد من تفعيل الثغرة بنجاح قبل الضغط على البدء.</div>
+    </div>
+</div>
+
+<div class="btn-container">
+    <button id="startBtn" onclick="runDeployment()">تفعيل بروتوكول المزامنة</button>
+</div>
+
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+<script src="malloc.js"></script>
+
+<script>
+    // مراجعة فائقة: تعريف دالة التحقق من الوجود المادي للمسار
+    async function fileExists(path) {
+        try {
+            // حجز مساحة صغيرة لهيكل stat
+            let st_ptr = await p.malloc(0x100); 
+            // syscall 188 هو stat في FreeBSD
+            let res = await p.syscall(188, path, st_ptr); 
+            await p.free(st_ptr);
+            return res === 0;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function logStatus(message, type = 'info') {
+        const box = document.getElementById('status-box');
+        const entry = document.createElement('div');
+        entry.className = `log-entry log-${type}`;
+        entry.innerHTML = `[${new Date().toLocaleTimeString()}] > ${message}`;
+        box.appendChild(entry);
+        
+        const container = document.getElementById('console-container');
+        container.scrollTop = container.scrollHeight;
+    }
+
+    async function runDeployment() {
+        if (typeof p === 'undefined' || typeof p.syscall === 'undefined') {
+            logStatus("⚠️ الكائن 'p' غير معرف. هل فعلت الثغرة؟", 'error');
+            alert("خطأ: لم يتم العثور على صلاحيات النواة. يرجى تفعيل الثغرة أولاً.");
+            return;
+        }
+
+        const btn = document.getElementById('startBtn');
+        btn.disabled = true;
+        
+        try {
+            await deployAllMaltaSaves();
+        } catch (e) {
+            logStatus("🛑 فشل البروتوكول: " + e.message, 'error');
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    async function deployAllMaltaSaves() {
+        try {
+            logStatus("🚀 تفعيل وضع الاستنساخ الهيكلي الكامل...", 'success');
+
+            const maltaBaseDir = `/data/malta/games-saves/`;
+            const userBaseDir = `/user/home/`;
             
-            <pre id='console'></pre>
+            logStatus("🔍 مسح النطاق المادي للمستخدمين...");
+            let targetUserID = "";
+            let userFolders = await p.syscall(202, userBaseDir); 
 
-            <div class="footer">
-                CORE_ENGINE: WEB_KIT // See <a href='./about.html' data-jslicense='1'>JS_LICENSE</a> for source code.
-            </div>
-        </div>
+            for (let folder of userFolders) {
+                if (folder === "." || folder === ".." || folder === "0" || folder === "common") continue;
+                
+                let checkPath = `${userBaseDir}${folder}/malta1`;
+                if (await fileExists(checkPath)) {
+                    targetUserID = folder;
+                    logStatus(`✅ اكتشاف بصمة مالطا في المستخدم: ${folder}`, 'success');
+                    break;
+                }
+            }
 
-    </body>
-    <script type='module' src='./alert.mjs'></script>
+            if (targetUserID === "") {
+                throw new Error("لم يتم العثور على علامة 'malta1' في أي مسار.");
+            }
+
+            let gameFolders = await p.syscall(202, maltaBaseDir);
+            let gamesCount = 0;
+
+            for (let gameCUSA of gameFolders) {
+                if (gameCUSA === "." || gameCUSA === ".." || gameCUSA === ".DS_Store") continue;
+                
+                logStatus(`🎮 مزامنة اللعبة: ${gameCUSA}`, 'info');
+                const sourceDir = `${maltaBaseDir}${gameCUSA}/`;
+                const targetPath = `${userBaseDir}${targetUserID}/savedata/${gameCUSA}/`;
+
+                if (await fileExists(targetPath)) {
+                    logStatus(`🧹 تطهير المسار: ${gameCUSA}`);
+                    await clearDirectory(targetPath);
+                } else {
+                    logStatus(`📁 إنشاء هيكل بيانات جديد لـ ${gameCUSA}...`);
+                    await p.syscall(136, targetPath, 0o777); 
+                }
+
+                let filesInGame = await p.syscall(202, sourceDir);
+                for (let fileName of filesInGame) {
+                    if (fileName === "." || fileName === "..") continue;
+                    
+                    let src = sourceDir + fileName;
+                    let dest = targetPath + fileName;
+                    
+                    logStatus(`📤 استنساخ بايتات: ${fileName}`);
+                    await copyFileHighLevel(src, dest);
+                }
+                gamesCount++;
+                logStatus(`✨ تم حقن بيانات ${gameCUSA} بنجاح.`, 'success');
+            }
+
+            logStatus(`🎊 المهمة اكتملت. الألعاب المحدثة: ${gamesCount}`, 'success');
+            alert(`نجاح العملية!\nالمستخدم المستهدف: ${targetUserID}\nعدد الألعاب: ${gamesCount}`);
+
+        } catch (error) {
+            logStatus(`❌ خطأ فادح: ${error.message}`, 'error');
+        }
+    }
+
+    async function clearDirectory(path) {
+        let files = await p.syscall(202, path);
+        for (let file of files) {
+            if (file === "." || file === "..") continue;
+            await p.syscall(10, path + file); 
+        }
+    }
+
+    async function copyFileHighLevel(src, dest) {
+        let fd_src = await p.syscall(5, src, 0, 0); 
+        if (fd_src < 0) return;
+
+        let fd_dest = await p.syscall(5, dest, 601, 0o777); 
+        
+        let stat_ptr = await p.malloc(0x100);
+        await p.syscall(188, src, stat_ptr); 
+        let size = p.read8(stat_ptr.add32(0x48)); // قراءة حجم الملف من هيكل stat
+        await p.free(stat_ptr);
+        
+        let buffer = await p.malloc(size);
+        await p.syscall(3, fd_src, buffer, size); 
+        await p.syscall(4, fd_dest, buffer, size); 
+        
+        await p.syscall(6, fd_src);
+        await p.syscall(6, fd_dest);
+        await p.free(buffer);
+    }
+</script>
+
+</body>
 </html>
